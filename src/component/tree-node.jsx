@@ -19,7 +19,9 @@ export default props =>
                         <i className="fa fa-caret-right fa-fw" onClick={props.onOpen(props.nodeId)}></i>
                     }
                     {props.children.length == 0 && <i className="fa fa-fw"></i>}
-                    {props.obj && props.getContent(props.obj)}
+                    <span onClick={props.onClick(props.getId(props.obj))}>
+                        {props.obj && props.getContent(props.obj)}
+                    </span>
                 </div>
             </Col>
             <Col xs={4}>
