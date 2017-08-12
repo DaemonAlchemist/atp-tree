@@ -19,7 +19,7 @@ export default props =>
                         <i className="fa fa-caret-right fa-fw" onClick={props.onOpen(props.nodeId)}></i>
                     }
                     {props.children.length == 0 && <i className="fa fa-fw"></i>}
-                    <span onClick={props.onClick(props.getId(props.obj))}>
+                    <span onClick={() => props.onClick(props.getId(props.obj))}>
                         {props.obj && props.getContent(props.obj)}
                     </span>
                 </div>
@@ -29,14 +29,17 @@ export default props =>
                     <i
                         className="fa fa-times fa-fw"
                         style={{float: "right"}}
-                        onClick={props.onDelete(props.getId(props.obj))}
+                        onClick={() => props.onDelete(props.getId(props.obj))}
                     ></i>
                 </span>
                 <span className="text-success">
                     <i
                         className="fa fa-plus fa-fw"
                         style={{float: "right"}}
-                        onClick={props.onAddChild(props.getId(props.obj))}
+                        onClick={() => {
+                            props.onAddChild(props.getId(props.obj));
+                            props.onOpen(props.nodeId)();
+                        }}
                     ></i>
                 </span>
             </Col>
