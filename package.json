@@ -24,6 +24,12 @@
   "author": "Andrew Wittrock",
   "license": "MIT",
   "dependencies": {
+    "atp-sugar": "^0.4.2",
+    "react": "^16.0.0",
+    "react-bootstrap": "^0.31.3",
+    "react-lifecycle-component": "^2.0.5",
+    "react-redux": "^5.0.6",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
