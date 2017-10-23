@@ -15,9 +15,9 @@ export default connectWithLifecycle(
         nodeId,
         obj: props.getObject(state, props.id),
         children: props.getChildren(state, props.id).sort(props.sorter),
-        node: state.atpTree[nodeId] || {
-            open: false
-        }
+        node: typeof state.atpTree !== 'undefined' && typeof state.atpTree[nodeId] !== 'undefined'
+            ? state.atpTree[nodeId]
+            :{open: false}
     })),
     (dispatch, props) => o(props.parentNodeId + "/" + props.id).as(nodeId => ({
         componentDidMount: () => dispatch(initTreeNode(nodeId)),
