@@ -2,8 +2,6 @@
  * Created by Andy on 7/9/2017.
  */
 
-import {collate} from "atp-sugar";
-
 //Ancestry
 export const parent = node => node.parent;
 export const ancestors = node => node.parent
