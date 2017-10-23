@@ -13,13 +13,13 @@ export default props =>
             <Col xs={8}>
                 <div style={{textIndent: "-18px", marginLeft: "18px"}}>
                     {props.children.length > 0 && props.node.open &&
-                        <i className="fa fa-caret-down fa-fw" onClick={props.onClose(props.nodeId)}></i>
+                        <i className="fa fa-caret-down fa-fw fa-lg" onClick={props.onClose(props.nodeId)}></i>
                     }
                     {props.children.length > 0 && !props.node.open &&
-                        <i className="fa fa-caret-right fa-fw" onClick={props.onOpen(props.nodeId)}></i>
+                        <i className="fa fa-caret-right fa-fw fa-lg" onClick={props.onOpen(props.nodeId)}></i>
                     }
-                    {props.children.length == 0 && <i className="fa fa-fw"></i>}
-                    <span onClick={() => props.onClick(props.getId(props.obj))}>
+                    {props.children.length == 0 && <i className="fa fa-fw fa-lg"></i>}
+                    <span onClick={() => props.onClick(props.getId(props.obj))} style={{marginLeft: "-4px"}}>
                         {props.obj && props.getContent(props.obj)}
                     </span>
                 </div>
