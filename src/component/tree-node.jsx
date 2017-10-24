@@ -9,7 +9,10 @@ import TreeNode from "../container/tree-node";
 
 export default props =>
     <li className={props.nodeId}>
-        <Row>
+        <Row
+            className={props.isSelected(props.obj) ? " bg-info" : ""}
+            style={Object.assign({}, props.isSelected(props.obj) ? {color: "#000"} : {})}
+        >
             <Col xs={8}>
                 <div style={{textIndent: "-18px", marginLeft: "18px"}}>
                     {props.children.length > 0 && props.node.open &&
