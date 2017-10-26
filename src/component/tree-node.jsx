@@ -22,9 +22,17 @@ export default props =>
                         <i className="fa fa-caret-right fa-fw fa-lg" onClick={props.onOpen(props.nodeId)}></i>
                     }
                     {props.children.length == 0 && <i className="fa fa-fw fa-lg"></i>}
-                    <span onClick={() => props.onClick(props.getId(props.obj))} style={{marginLeft: "-4px"}}>
-                        {props.obj && props.getContent(props.obj)}
-                    </span>
+                    {props.dragSource(props.addChildDropTarget(
+                        <span onClick={() => props.onClick(props.getId(props.obj))} style={{marginLeft: "-4px"}}>
+                            {props.obj && props.getContent(props.obj)}
+                        </span>
+                    ))}
+                    {props.children.length > 0 && props.node.open && props.addChildDropTarget(
+                        <div style={{marginLeft: "8px", width: "100%", height: "4px", background: props.isOverAddChild ? "#f00" : "transparent"}}></div>
+                    )}
+                    {props.children.length === 0 || !props.node.open &&
+                        <div style={{height: "4px"}}></div>
+                    }
                 </div>
             </Col>
             <Col xs={4}>
@@ -50,7 +58,7 @@ export default props =>
         <ul style={{
             paddingLeft: "8px",
             listStyleType: "none",
-            display: props.node.open ? "block" : "none"
+            display: props.node.open ? "block" : "none",
         }}>
             {props.children && props.children.map(obj =>
                 <TreeNode
@@ -61,4 +69,13 @@ export default props =>
                 />
             )}
         </ul>
+        <Row>
+            <Col xs={12}>
+                <div style={{textIndent: "-18px", marginLeft: "18px"}}>
+                    {props.addAfterDropTarget(
+                        <div style={{width: "100%", height: "4px", background: props.isOverAddAfter ? "#f00" : "transparent"}}></div>
+                    )}
+                </div>
+            </Col>
+        </Row>
     </li>;
