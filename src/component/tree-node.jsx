@@ -7,6 +7,14 @@ import {Row, Col} from "react-bootstrap";
 
 import TreeNode from "../container/tree-node";
 
+const DropTarget = ({isOver}) =>
+    <div
+        style={{
+            height: isOver ? "16px" : "4px",
+            border: isOver ? "dashed 1px" : "none"
+        }}
+    ></div>
+
 export default props =>
     <li className={props.nodeId}>
         <Row
@@ -23,12 +31,18 @@ export default props =>
                     }
                     {props.children.length == 0 && <i className="fa fa-fw fa-lg"></i>}
                     {props.dragSource(props.addChildDropTarget(
-                        <span onClick={() => props.onClick(props.getId(props.obj))} style={{marginLeft: "-4px"}}>
+                        <span
+                            onClick={() => props.onClick(props.getId(props.obj))}
+                            style={{
+                                marginLeft: "-4px",
+                                border: props.isOverAddChild && !props.node.open ? "dashed 1px" : "none"
+                            }}
+                        >
                             {props.obj && props.getContent(props.obj)}
                         </span>
                     ))}
                     {props.children.length > 0 && props.node.open && props.addChildDropTarget(
-                        <div style={{marginLeft: "8px", width: "100%", height: "4px", background: props.isOverAddChild ? "#f00" : "transparent"}}></div>
+                        <div style={{marginLeft: "8px", width: "100%"}}><DropTarget isOver={props.isOverAddChild} /></div>
                     )}
                     {props.children.length === 0 || !props.node.open &&
                         <div style={{height: "4px"}}></div>
@@ -73,7 +87,7 @@ export default props =>
             <Col xs={12}>
                 <div style={{textIndent: "-18px", marginLeft: "18px"}}>
                     {props.addAfterDropTarget(
-                        <div style={{width: "100%", height: "4px", background: props.isOverAddAfter ? "#f00" : "transparent"}}></div>
+                        <div style={{width: "100%"}}><DropTarget isOver={props.isOverAddAfter} /></div>
                     )}
                 </div>
             </Col>
