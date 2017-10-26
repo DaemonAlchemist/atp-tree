@@ -12,13 +12,9 @@ import {openTreeNode, closeTreeNode, initTreeNode} from "../reducer/tree";
 const source = DragSource(
     'tree-node',
     {
-        beginDrag: (props, monitor, component) => {
-            console.log("Begin drag " + props.id);
-            return {id: props.id};
-        },
-        endDrag: (props, monitor, component) => {
-            console.log("Drop result " + JSON.stringify(monitor.getDropResult()));
-            console.log("End drag");
+        beginDrag: (props, monitor, component) => ({id: props.id}),
+        endDrag: (props, monitor) => {
+            props.onMove(monitor.getDropResult());
         }
     },
     (connect, monitor) => ({
@@ -30,13 +26,11 @@ const source = DragSource(
 const addChildTarget = DropTarget(
     'tree-node',
     {
-        drop: (props, monitor, component) => {
-            console.log("Dropped " + JSON.stringify(monitor.getItem()) + " onto " + props.id);
-            return {dropEffect: "addChild", sourceId: monitor.getItem().id, targetId: props.id};
-        },
-        hover: (props, monitor, component) => {
-            console.log("Hovering over item " + props.id);
-        },
+        drop: (props, monitor) => ({
+            dropEffect: "into",
+            sourceId: monitor.getItem().id,
+            targetId: props.id
+        }),
         canDrop: (props, monitor) => {
             //TODO:  Prevent adding a node to a descendent
             return true;
@@ -51,13 +45,11 @@ const addChildTarget = DropTarget(
 const addAfterTarget = DropTarget(
     'tree-node',
     {
-        drop: (props, monitor, component) => {
-            console.log("Dropped " + JSON.stringify(monitor.getItem()) + " onto " + props.id);
-            return {dropEffect: "addAfter", sourceId: monitor.getItem().id, targetId: props.id};
-        },
-        hover: (props, monitor, component) => {
-            console.log("Hovering AFTER item " + props.id);
-        },
+        drop: (props, monitor) => ({
+            dropEffect: "after",
+            sourceId: monitor.getItem().id,
+            targetId: props.id
+        }),
         canDrop: (props, monitor) => {
             //TODO:  Prevent adding a node to a descendent
             return true;
@@ -68,9 +60,6 @@ const addAfterTarget = DropTarget(
         isOverAddAfter: monitor.isOver()
     })
 );
-
-const SourceNode = component => props => props.dragSource(component(props));
-const TargetNode = component => props => props.dropTarget(component(props));
 
 //Generic tree node component
 const treeNodeContainer = connectWithLifecycle(
@@ -86,7 +75,10 @@ const treeNodeContainer = connectWithLifecycle(
     (dispatch, props) => o(props.parentNodeId + "/" + props.id).as(nodeId => ({
         componentDidMount: () => dispatch(initTreeNode(nodeId)),
         onOpen: id => () => dispatch(openTreeNode(id)),
-        onClose: id => () => dispatch(closeTreeNode(id))
+        onClose: id => () => dispatch(closeTreeNode(id)),
+        onMove: props.onMove || (({dropEffect, sourceId, targetId}) => {
+            console.log("Move node " + sourceId + " " + dropEffect + " node " + targetId);
+        })
     }))
 )(TreeNode);
 
