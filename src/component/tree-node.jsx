@@ -33,20 +33,14 @@ export default props =>
                     {props.dragSource(props.addChildDropTarget(
                         <span
                             onClick={() => props.onClick(props.getId(props.obj))}
-                            style={{
-                                marginLeft: "-4px",
-                                border: props.isOverAddChild && !props.node.open ? "dashed 1px" : "none"
-                            }}
+                            style={{marginLeft: "-4px"}}
                         >
                             {props.obj && props.getContent(props.obj)}
                         </span>
                     ))}
-                    {props.children.length > 0 && props.node.open && props.addChildDropTarget(
-                        <div style={{marginLeft: "8px", width: "100%"}}><DropTarget isOver={props.isOverAddChild} /></div>
+                    {props.addChildDropTarget(
+                        <div style={{marginLeft: "20px", width: "100%"}}><DropTarget isOver={props.isOverAddChild} /></div>
                     )}
-                    {props.children.length === 0 || !props.node.open &&
-                        <div style={{height: "4px"}}></div>
-                    }
                 </div>
             </Col>
             <Col xs={4}>
@@ -70,7 +64,8 @@ export default props =>
             </Col>
         </Row>
         <ul style={{
-            paddingLeft: "8px",
+            paddingLeft: "20px",
+            marginTop: "4px",
             listStyleType: "none",
             display: props.node.open ? "block" : "none",
         }}>

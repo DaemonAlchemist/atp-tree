@@ -14,7 +14,10 @@ const source = DragSource(
     {
         beginDrag: (props, monitor, component) => ({id: props.id}),
         endDrag: (props, monitor) => {
-            props.onMove(monitor.getDropResult());
+            const result = monitor.getDropResult();
+            if(result) {
+                props.onMove(result);
+            }
         }
     },
     (connect, monitor) => ({
