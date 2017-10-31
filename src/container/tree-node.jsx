@@ -26,43 +26,31 @@ const source = DragSource(
     })
 );
 
-const addChildTarget = DropTarget(
+const dropTarget = (action, name) => DropTarget(
     'tree-node',
     {
         drop: (props, monitor) => ({
-            dropEffect: "into",
+            dropEffect: action,
             sourceId: monitor.getItem().id,
             targetId: props.id
         }),
         canDrop: (props, monitor) => {
-            //TODO:  Prevent adding a node to a descendent
-            return true;
+            const sourceId = monitor.getItem().id;
+            const restrictedNodes = (props.parents || []).concat(props.id);
+            const canDrop = !restrictedNodes.includes(sourceId);
+            return canDrop;
         }
     },
     (connect, monitor) => ({
-        addChildDropTarget: connect.dropTarget(),
-        isOverAddChild: monitor.isOver()
+        [name + 'DropTarget']: connect.dropTarget(),
+        [name + 'CanDrop']: monitor.canDrop(),
+        [name + 'IsOver']: monitor.isOver(),
+
     })
 );
 
-const addAfterTarget = DropTarget(
-    'tree-node',
-    {
-        drop: (props, monitor) => ({
-            dropEffect: "after",
-            sourceId: monitor.getItem().id,
-            targetId: props.id
-        }),
-        canDrop: (props, monitor) => {
-            //TODO:  Prevent adding a node to a descendent
-            return true;
-        }
-    },
-    (connect, monitor) => ({
-        addAfterDropTarget: connect.dropTarget(),
-        isOverAddAfter: monitor.isOver()
-    })
-);
+const addChildTarget = dropTarget('into', 'addChild');
+const addAfterTarget = dropTarget('after', 'addAfter');
 
 //Generic tree node component
 const treeNodeContainer = connectWithLifecycle(
@@ -71,6 +59,7 @@ const treeNodeContainer = connectWithLifecycle(
         nodeId,
         obj: props.getObject(state, props.id),
         children: props.getChildren(state, props.id).sort(props.sorter),
+        parents: props.parents || [],
         node: typeof state.atpTree !== 'undefined' && typeof state.atpTree[nodeId] !== 'undefined'
             ? state.atpTree[nodeId]
             :{open: false}

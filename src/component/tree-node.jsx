@@ -7,11 +7,11 @@ import {Row, Col} from "react-bootstrap";
 
 import TreeNode from "../container/tree-node";
 
-const DropTarget = ({isOver}) =>
+const DropTarget = ({isOver, canDrop}) =>
     <div
         style={{
             height: isOver ? "16px" : "4px",
-            border: isOver ? "dashed 1px" : "none"
+            border: isOver ? "dashed 1px" + (!canDrop ? " #f00" : "") : "none"
         }}
     ></div>
 
@@ -39,7 +39,9 @@ export default props =>
                         </span>
                     ))}
                     {props.addChildDropTarget(
-                        <div style={{marginLeft: "20px", width: "100%"}}><DropTarget isOver={props.isOverAddChild} /></div>
+                        <div style={{marginLeft: "20px", width: "100%"}}>
+                            <DropTarget isOver={props.addChildIsOver} canDrop={props.addChildCanDrop}/>
+                        </div>
                     )}
                 </div>
             </Col>
@@ -73,6 +75,7 @@ export default props =>
                 <TreeNode
                     {...props}
                     parentNodeId={props.nodeId}
+                    parents={props.parents.concat(props.getId(props.obj))}
                     key={props.getId(obj)}
                     id={props.getId(obj)}
                 />
@@ -82,7 +85,9 @@ export default props =>
             <Col xs={12}>
                 <div style={{textIndent: "-18px", marginLeft: "18px"}}>
                     {props.addAfterDropTarget(
-                        <div style={{width: "100%"}}><DropTarget isOver={props.isOverAddAfter} /></div>
+                        <div style={{width: "100%"}}>
+                            <DropTarget isOver={props.addAfterIsOver} canDrop={props.addAfterCanDrop}/>
+                        </div>
                     )}
                 </div>
             </Col>
