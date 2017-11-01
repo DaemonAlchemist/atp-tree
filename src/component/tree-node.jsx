@@ -3,7 +3,7 @@
  */
 
 import React from "react";
-import {Row, Col} from "react-bootstrap";
+import {Row, Col, Button} from "react-bootstrap";
 
 import TreeNode from "../container/tree-node";
 
@@ -45,24 +45,24 @@ export default props =>
                     )}
                 </div>
             </Col>
-            <Col xs={4}>
-                <span className="text-danger">
-                    <i
-                        className="fa fa-times fa-fw"
-                        style={{float: "right"}}
-                        onClick={() => props.onDelete(props.getId(props.obj))}
-                    ></i>
-                </span>
-                <span className="text-success">
-                    <i
-                        className="fa fa-plus fa-fw"
-                        style={{float: "right"}}
-                        onClick={() => {
-                            props.onAddChild(props.getId(props.obj));
-                            props.onOpen(props.nodeId)();
-                        }}
-                    ></i>
-                </span>
+            <Col xs={4} className="text-right">
+                <Button
+                    bsSize="xsmall"
+                    bsStyle="success"
+                    onClick={() => {
+                        props.onAddChild(props.getId(props.obj));
+                        props.onOpen(props.nodeId)();
+                    }}
+                >
+                    <i className="fa fa-plus fa-fw"></i>
+                </Button>
+                <Button
+                    bsSize="xsmall"
+                    bsStyle="danger"
+                    onClick={() => props.onDelete(props.getId(props.obj))}
+                >
+                    <i className="fa fa-times fa-fw"></i>
+                </Button>
             </Col>
         </Row>
         <ul style={{
