@@ -24,6 +24,8 @@
   "author": "Andrew Wittrock",
   "license": "MIT",
   "dependencies": {
+    "atp-dnd": "^0.1.0",
+    "atp-pointfree": "^0.2.1",
     "atp-sugar": "^0.4.2",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.3",
