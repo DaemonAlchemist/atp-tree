@@ -5,12 +5,17 @@
 import {o} from "atp-sugar";
 
 //Action Types
-export const TREE_NODE_INIT = "atp-tree/node/init";
 export const TREE_NODE_OPEN = "atp-tree/node/open";
 export const TREE_NODE_OPEN_ALL = "atp-tree/node/openAll";
 export const TREE_NODE_CLOSE = "atp-tree/node/close";
 export const TREE_NODE_CLOSE_ALL = "atp-tree/node/closeAll";
 export const TREE_NODE_MOVE = "atp-tree/node/move";
+
+//Selectors
+export const getTreeNode = (getState, nodeId) =>
+    typeof getState().atpTree !== 'undefined' && typeof getState().atpTree[nodeId] !== 'undefined'
+        ? getState().atpTree[nodeId]
+        : {open: false};
 
 //Action creators
 export const initTreeNode = nodeId => ({type: TREE_NODE_INIT, nodeId});
@@ -36,14 +41,6 @@ const toggleAllOpenStatus = (state, prefix, status) => o(state).map(
 
 //Reducer
 export default (state = [], action) => o(action.type).switch({
-    [TREE_NODE_INIT]:     () => ({
-        ...state,
-        [action.nodeId]: typeof state[action.nodeId] === 'undefined'
-            ? {
-                open: false
-            }
-            : state[action.nodeId]
-    }),
     [TREE_NODE_OPEN]:     () => toggleOpenStatus(state, action.nodeId, true),
     [TREE_NODE_CLOSE]:    () => toggleOpenStatus(state, action.nodeId, false),
     [TREE_NODE_OPEN_ALL]: () => toggleAllOpenStatus(state, action.nodePrefix, true),
