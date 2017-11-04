@@ -28,8 +28,10 @@ const treeNodeContainer = connect(
     }))
 )(TreeNode);
 
+const type = props => props.draggable || 'tree-node';
+const accepts = props => props.accepts || {};
 export default compose(
-    dragSource('tree-node'),
-    hierarchicalDropTarget('tree-node', 'into', 'addChild'),
-    hierarchicalDropTarget('tree-node', 'after', 'addAfter')
+    dragSource(type),
+    hierarchicalDropTarget({type, action: 'into',  name: 'addChild', accepts}),
+    hierarchicalDropTarget({type, action: 'after', name: 'addAfter', accepts})
 )(treeNodeContainer);
