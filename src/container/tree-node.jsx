@@ -22,9 +22,6 @@ const treeNodeContainer = connect(
     (dispatch, props) => o(props.parentNodeId + "/" + props.id).as(nodeId => ({
         onOpen: id => () => dispatch(openTreeNode(id)),
         onClose: id => () => dispatch(closeTreeNode(id)),
-        onMove: props.onMove || (({dropEffect, sourceId, targetId}) => {
-            console.log("Move node " + sourceId + " " + dropEffect + " node " + targetId);
-        })
     }))
 )(TreeNode);
 
