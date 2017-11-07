@@ -15,7 +15,10 @@
     "patch": "npm version patch && npm run new-tag",
     "major-clean": "npm install && npm run major && rm -rf node_modules",
     "minor-clean": "npm install && npm run minor && rm -rf node_modules",
-    "patch-clean": "npm install && npm run patch && rm -rf node_modules"
+    "patch-clean": "npm install && npm run patch && rm -rf node_modules",
+    "check-dependencies": "dependency-check ./package.json && dependency-check ./package.json --unused",
+    "check": "ncu --packageFile package.json",
+    "evergreen": "ncu -ua --packageFile package.json"
   },
   "repository": {
     "type": "git",
@@ -24,23 +27,21 @@
   "author": "Andrew Wittrock",
   "license": "MIT",
   "dependencies": {
-    "atp-dnd": "^0.1.0",
-    "atp-pointfree": "^0.2.1",
-    "atp-sugar": "^0.4.2",
+    "atp-dnd": "^0.2.1",
+    "atp-pointfree": "^0.3.1",
+    "atp-sugar": "^0.8.1",
+    "dependency-check": "^2.9.1",
     "react": "^16.0.0",
-    "react-bootstrap": "^0.31.3",
-    "react-dom": "^16.0.0",
-    "react-lifecycle-component": "^2.0.5",
-    "react-redux": "^5.0.6",
-    "redux": "^3.7.2"
+    "react-bootstrap": "^0.31.5",
+    "react-redux": "^5.0.6"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.0",
+    "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "chai": "^4.1.2",
-    "mocha": "^3.5.0"
+    "mocha": "^4.0.1"
   }
 }
