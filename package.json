@@ -27,10 +27,10 @@
   "author": "Andrew Wittrock",
   "license": "MIT",
   "dependencies": {
-    "atp-dnd": "^0.3.1",
+    "atp-dnd": "^0.4.0",
     "atp-pointfree": "^0.3.2",
     "atp-sugar": "^0.8.3",
-    "react": "^16.0.0",
+    "react": "^16.1.0",
     "react-bootstrap": "^0.31.5",
     "react-redux": "^5.0.6"
   },
