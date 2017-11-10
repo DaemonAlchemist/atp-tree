@@ -31,7 +31,14 @@ export default props =>
                         <i className="fa fa-caret-right fa-fw fa-lg" onClick={props.onOpen(props.nodeId)}></i>
                     }
                     {props.children.length == 0 && <i className="fa fa-fw fa-lg"></i>}
-                    <DragSource type={props.draggable || "tree-node"} id={props.id}>
+                    <DragSource
+                        type={props.draggable || "tree-node"}
+                        id={props.id}
+                        style={{
+                            marginLeft: "20px",
+                            display: 'inline-block'
+                        }}
+                    >
                         {props.addChildDropTarget(
                             <span
                                 onClick={() => props.onClick(props.getId(props.obj))}
