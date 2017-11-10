@@ -4,7 +4,7 @@
 
 import React from "react";
 import {Row, Col, Button} from "react-bootstrap";
-import {DragSource} from 'atp-dnd';
+import {Draggable} from 'atp-dnd';
 
 import TreeNode from "../container/tree-node";
 
@@ -31,7 +31,7 @@ export default props =>
                         <i className="fa fa-caret-right fa-fw fa-lg" onClick={props.onOpen(props.nodeId)}></i>
                     }
                     {props.children.length == 0 && <i className="fa fa-fw fa-lg"></i>}
-                    <DragSource
+                    <Draggable
                         type={props.draggable || "tree-node"}
                         id={props.id}
                         style={{
@@ -47,7 +47,7 @@ export default props =>
                                 {props.obj && props.getContent(props.obj)}
                             </span>
                         )}
-                    </DragSource>
+                    </Draggable>
                     {props.addChildDropTarget(
                         <div style={{marginLeft: "20px", width: "100%"}}>
                             <DropTarget isOver={props.addChildIsOver} canDrop={props.addChildCanDrop}/>
