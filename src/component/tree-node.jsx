@@ -4,11 +4,11 @@
 
 import React from "react";
 import {Row, Col, Button} from "react-bootstrap";
-import {Draggable} from 'atp-dnd';
+import {Draggable, DropTarget, Active, Inactive, CanDrop, CannotDrop} from 'atp-dnd';
 
 import TreeNode from "../container/tree-node";
 
-const DropTarget = ({isOver, canDrop}) =>
+const DropTargetPlaceholder = ({isOver, canDrop}) =>
     <div
         style={{
             height: isOver ? "16px" : "4px",
@@ -39,20 +39,34 @@ export default props =>
                             display: 'inline-block'
                         }}
                     >
-                        {props.addChildDropTarget(
+                        <DropTarget
+                            action="into"
+                            accepts={props.accepts}
+                            id={props.getId(props.obj)}
+                            onReceiveDrop={props.onReceiveDrop}
+                        >
                             <span
                                 onClick={() => props.onClick(props.getId(props.obj))}
                                 style={{marginLeft: "-4px"}}
                             >
                                 {props.obj && props.getContent(props.obj)}
                             </span>
-                        )}
+                        </DropTarget>
                     </Draggable>
-                    {props.addChildDropTarget(
+                    <DropTarget
+                        action="into"
+                        accepts={props.accepts}
+                        id={props.getId(props.obj)}
+                        onReceiveDrop={props.onReceiveDrop}
+                    >
                         <div style={{marginLeft: "20px", width: "100%"}}>
-                            <DropTarget isOver={props.addChildIsOver} canDrop={props.addChildCanDrop}/>
+                            <Active>
+                                <CanDrop><div style={{height: "16px", border: "dashed 1px"}} /></CanDrop>
+                                <CannotDrop><div style={{height: "16px", border: "dashed 1px red"}} /></CannotDrop>
+                            </Active>
+                            <Inactive><div style={{height: "4px", border: "none"}} /></Inactive>
                         </div>
-                    )}
+                    </DropTarget>
                 </div>
             </Col>
             <Col xs={4} className="text-right">
@@ -96,7 +110,7 @@ export default props =>
                 <div style={{textIndent: "-18px", marginLeft: "18px"}}>
                     {props.addAfterDropTarget(
                         <div style={{width: "100%"}}>
-                            <DropTarget isOver={props.addAfterIsOver} canDrop={props.addAfterCanDrop}/>
+                            <DropTargetPlaceholder isOver={props.addAfterIsOver} canDrop={props.addAfterCanDrop}/>
                         </div>
                     )}
                 </div>
