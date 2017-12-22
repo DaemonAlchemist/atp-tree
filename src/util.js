@@ -1,6 +1,3 @@
-/**
- * Created by Andy on 7/9/2017.
- */
 
 //Ancestry
 export const parent = node => node.parent;

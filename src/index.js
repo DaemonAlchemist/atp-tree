@@ -1,6 +1,3 @@
-/**
- * Created by Andy on 7/9/2017.
- */
 
 import atpTree from "./reducer/tree";
 import {openAllTreeNodes, openTreeNode, closeAllTreeNodes, closeTreeNode} from "./reducer/tree";

@@ -1,10 +1,8 @@
-/**
- * Created by AWITTROCK on 7/17/2017.
- */
 
 import React from "react";
 import {Row, Col, Button} from "react-bootstrap";
 import {Draggable, DropTarget, Active, Inactive, CanDrop, CannotDrop} from 'atp-dnd';
+import {Icon} from 'react-font-awesome-5';
 
 import TreeNode from "../container/tree-node";
 
@@ -17,15 +15,6 @@ const DropTargetDiv = ({style}) =>
         <Inactive><div style={{height: "4px", border: "none"}} /></Inactive>
     </div>;
 
-
-const DropTargetPlaceholder = ({isOver, canDrop}) =>
-    <div
-        style={{
-            height: isOver ? "16px" : "4px",
-            border: isOver ? "dashed 1px" + (!canDrop ? " #f00" : "") : "none"
-        }}
-    ></div>
-
 export default props =>
     <li className={props.nodeId}>
         <Row
@@ -35,17 +24,16 @@ export default props =>
             <Col xs={8}>
                 <div style={{textIndent: "-18px", marginLeft: "18px"}}>
                     {props.children.length > 0 && props.node.open &&
-                        <i className="fa fa-caret-down fa-fw fa-lg" onClick={props.onClose(props.nodeId)}></i>
+                        <Icon.CaretDown fixedWidth size="lg" onClick={props.onClose(props.nodeId)}/>
                     }
                     {props.children.length > 0 && !props.node.open &&
-                        <i className="fa fa-caret-right fa-fw fa-lg" onClick={props.onOpen(props.nodeId)}></i>
+                        <Icon.CaretRight fixedWidth size="lg" onClick={props.onOpen(props.nodeId)} />
                     }
-                    {props.children.length == 0 && <i className="fa fa-fw fa-lg"></i>}
                     <Draggable
                         type={props.draggable || "tree-node"}
                         id={props.id}
                         style={{
-                            marginLeft: "20px",
+                            marginLeft: props.children.length === 0 ? "40px" : "20px",
                             display: 'inline-block'
                         }}
                     >
@@ -82,14 +70,14 @@ export default props =>
                         props.onOpen(props.nodeId)();
                     }}
                 >
-                    <i className="fa fa-plus fa-fw"></i>
+                    <Icon.Plus fixedWidth />
                 </Button>
                 <Button
                     bsSize="xsmall"
                     bsStyle="danger"
                     onClick={() => props.onDelete(props.getId(props.obj))}
                 >
-                    <i className="fa fa-times fa-fw"></i>
+                    <Icon.Times fixedWidth />
                 </Button>
             </Col>
         </Row>

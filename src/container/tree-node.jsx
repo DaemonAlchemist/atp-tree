@@ -1,6 +1,3 @@
-/**
- * Created by AWITTROCK on 7/17/2017.
- */
 
 import {o} from "atp-sugar";
 import {connect} from "react-redux";
