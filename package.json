@@ -1,6 +1,6 @@
 {
   "name": "atp-tree",
-  "version": "0.4.8",
+  "version": "0.4.9",
   "description": "A React/Redux tree module.",
   "main": "lib/index.js",
   "scripts": {
