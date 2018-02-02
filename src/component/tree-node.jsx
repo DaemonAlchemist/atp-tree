@@ -17,10 +17,7 @@ const DropTargetDiv = ({style}) =>
 
 export default props =>
     <li className={props.nodeId}>
-        <Row
-            className={props.isSelected(props.obj) ? " bg-info" : ""}
-            style={Object.assign({}, props.isSelected(props.obj) ? {color: "#000"} : {})}
-        >
+        <Row>
             <Col xs={8}>
                 <div style={{textIndent: "-18px", marginLeft: "18px"}}>
                     {props.children.length > 0 && props.node.open &&
@@ -47,7 +44,7 @@ export default props =>
                                 onClick={() => props.onClick(props.getId(props.obj))}
                                 style={{marginLeft: "-4px"}}
                             >
-                                {props.obj && props.getContent(props.obj)}
+                                {props.obj && props.getContent(props.obj, props.isSelected(props.obj))}
                             </span>
                         </DropTarget>
                     </Draggable>
@@ -64,7 +61,8 @@ export default props =>
             <Col xs={4} className="text-right">
                 <Button
                     bsSize="xsmall"
-                    bsStyle="success"
+                    bsStyle="link"
+                    className="text-success"
                     onClick={() => {
                         props.onAddChild(props.getId(props.obj));
                         props.onOpen(props.nodeId)();
@@ -74,10 +72,11 @@ export default props =>
                 </Button>
                 <Button
                     bsSize="xsmall"
-                    bsStyle="danger"
+                    bsStyle="link"
+                    className="text-danger"
                     onClick={() => props.onDelete(props.getId(props.obj))}
                 >
-                    <Icon.Times fixedWidth />
+                    <Icon.Times fixedWidth/>
                 </Button>
             </Col>
         </Row>
