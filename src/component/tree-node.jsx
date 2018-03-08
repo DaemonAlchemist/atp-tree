@@ -76,7 +76,7 @@ export default props =>
                     className="text-danger"
                     onClick={() => props.onDelete(props.getId(props.obj))}
                 >
-                    <Icon.Times fixedWidth/>
+                    <Icon.Trash fixedWidth/>
                 </Button>
             </Col>
         </Row>
