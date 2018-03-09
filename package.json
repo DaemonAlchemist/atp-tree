@@ -29,6 +29,7 @@
   "dependencies": {
     "atp-dnd": "^0.10.2",
     "atp-sugar": "^0.8.4",
+    "atp-ui": "^0.9.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
     "react-font-awesome-5": "^0.2.2",

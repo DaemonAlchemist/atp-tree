@@ -3,7 +3,7 @@ import React from "react";
 import {Row, Col, Button} from "react-bootstrap";
 import {Draggable, DropTarget, Active, Inactive, CanDrop, CannotDrop} from 'atp-dnd';
 import {Icon} from 'react-font-awesome-5';
-
+import {DeleteButton} from 'atp-ui';
 import TreeNode from "../container/tree-node";
 
 const DropTargetDiv = ({style}) =>
@@ -70,14 +70,10 @@ export default props =>
                 >
                     <Icon.Plus fixedWidth />
                 </Button>
-                <Button
-                    bsSize="xsmall"
-                    bsStyle="link"
-                    className="text-danger"
+                <DeleteButton
+                    id={`treeNodeDeleteBtn${props.getId(props.obj)}`}
                     onClick={() => props.onDelete(props.getId(props.obj))}
-                >
-                    <Icon.Trash fixedWidth/>
-                </Button>
+                />
             </Col>
         </Row>
         <ul style={{
