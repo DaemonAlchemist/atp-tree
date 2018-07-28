@@ -26,7 +26,7 @@ export default props =>
                     {props.children.length > 0 && !props.node.open &&
                         <Icon.CaretRight fixedWidth size="lg" onClick={props.onOpen(props.nodeId)} />
                     }
-                    <Draggable
+                    {props.canDrag && <Draggable
                         type={props.draggable || "tree-node"}
                         id={props.id}
                         style={{
@@ -47,19 +47,26 @@ export default props =>
                                 {props.obj && props.getContent(props.obj, props.isSelected(props.obj))}
                             </span>
                         </DropTarget>
-                    </Draggable>
-                    <DropTarget
+                    </Draggable>}
+                    {props.canDrag && <DropTarget
                         action="into"
                         accepts={props.accepts}
                         id={props.getId(props.obj)}
                         onReceiveDrop={props.onReceiveDrop}
                     >
                         <DropTargetDiv style={{marginLeft: "20px", width: "100%"}}/>
-                    </DropTarget>
+                    </DropTarget>}
+                    {!props.canDrag && <span
+                            onClick={() => props.onClick(props.getId(props.obj))}
+                            style={{marginLeft: "-4px"}}
+                        >
+                            {props.obj && props.getContent(props.obj, props.isSelected(props.obj))}
+                        </span>
+                    }
                 </div>
             </Col>
             <Col xs={4} className="text-right">
-                <Button
+                {props.canCreate && <Button
                     bsSize="xsmall"
                     bsStyle="link"
                     className="text-success"
@@ -69,11 +76,11 @@ export default props =>
                     }}
                 >
                     <Icon.Plus fixedWidth />
-                </Button>
-                <DeleteButton
+                </Button>}
+                {props.canDelete && <DeleteButton
                     id={`treeNodeDeleteBtn${props.getId(props.obj)}`}
                     onClick={() => props.onDelete(props.getId(props.obj))}
-                />
+                />}
             </Col>
         </Row>
         <ul style={{
