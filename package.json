@@ -24,7 +24,7 @@
     "type": "git",
     "url": "https://github.com/DaemonAlchemist/atp-tree.git"
   },
-  "author": "Andrew Wittrock",
+  "author": "DaemonAlchemist",
   "license": "MIT",
   "dependencies": {
     "atp-dnd": "^0.10.3",
